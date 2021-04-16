@@ -41,7 +41,7 @@
                 <span>Controller</span></a>
         </li>
 
-        <li th:if="${role=='ADMIN'}" class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+        <li th:if="${role=='admin'}" class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                 aria-expanded="true" aria-controls="collapseTwo"> <i class="fas fa-fw fa-cog"></i> <span>Items</span>
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -65,7 +65,7 @@
                 </div>
             </div>
         </li>
-        <li th:if="${role=='STAFFWARE' || role=='ADMIN'}" class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#warehouse"
+        <li th:if="${role=='admin'}" class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#warehouse"
                                 aria-expanded="true" aria-controls="category"> <i class="fas fa-fw fa-cog"></i>
             <span>WareHouse</span>
         </a>
@@ -78,7 +78,7 @@
             </div>
         </li>
 
-        <li th:if="${role=='ADMIN'}" class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#account"
+        <li th:if="${role=='admin'}" class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#account"
                 aria-expanded="true" aria-controls="account"> <i class="fas fa-fw fa-cog"></i> <span>Account</span>
             </a>
             <div id="account" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -90,7 +90,7 @@
             </div>
         </li>
 
-        <li th:if="${role == 'ADMIN'}" class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Statistical"
+        <li th:if="${role=='admin'}" class="nav-item"><a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Statistical"
                                                          aria-expanded="true" aria-controls="account"> <i class="fas fa-fw fa-cog"></i> <span>Statistical</span>
         </a>
             <div id="Statistical" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
