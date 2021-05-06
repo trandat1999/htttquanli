@@ -19,7 +19,7 @@
 					<div class="alert alert-warning" th:text="${err}"></div>
 				</div>
 				<div>
-					<form th:object="${cate}" method="POST">   
+					<form th:object="${category}" method="POST">   
 						<table class="table">
 							<thead>
 								<tr>
@@ -30,7 +30,7 @@
 							<tbody>
 								<tr>
 									<td>name</td>
-									<td><input th:field="*{nameCate}" type="text" placeholder="name" required/></td>
+									<td><input th:field="*{name}" type="text" placeholder="name" required/></td>
 								</tr>
 								<tr>
 									<td>code</td>

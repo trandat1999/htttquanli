@@ -15,28 +15,7 @@
 				<nav th:replace="admin/common/menu:: search"></nav>
 				<!-- End of Topbar -->
 				<!--content-->
-                <div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>id</th>
-                                <th>name</th>
-                                <th>code</th>
-                                <th th:if="${role=='admin'}">action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="cate : ${listCate}"> 
-                                <td th:text="${cate.id}"></td>
-                                <td th:text="${cate.name}"></td>
-                                <td th:text="${cate.code}"></td>
-                                <td th:if="${role=='admin'}"><a name="" id="" class="btn btn-primary" th:href="@{/admin/category/update/{id}(id=${cate.id})}" role="button">update</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-				<!--pagination-->
-				<div th:replace="admin/common/menu::pagination"></div>
+
 				<!--content-->
 			</div>
 			<!-- End of Main Content -->

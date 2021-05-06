@@ -13,6 +13,7 @@ import java.util.List;
 public class ImportItemBill extends BaseEntity<String>{
     private Date dateImport;
     private String note;
+    private ImportBillStatus status;
 
     @ManyToOne(targetEntity = Employee.class)
     @JoinColumn(name = "employee_id")
@@ -21,4 +22,8 @@ public class ImportItemBill extends BaseEntity<String>{
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "importItemBill")
     @JsonIgnore
     private List<ImportItem> importItemList;
+
+    @ManyToOne(targetEntity = Supplier.class, cascade =CascadeType.ALL)
+    @JoinColumn(name="supplier_id")
+    private Supplier supplier;
 }

@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Table(name="item")
 @Data
 public class Item extends BaseEntity<String>{
+    @Column(name = "name", unique = true)
     private String name;
     private String shortDescription;
     private String description;
@@ -15,6 +16,6 @@ public class Item extends BaseEntity<String>{
     @Lob
     private byte[] picture;
     @JoinColumn(name = "category")
-    @ManyToOne(fetch = FetchType.EAGER,targetEntity = Category.class)
+    @ManyToOne(fetch = FetchType.EAGER,targetEntity = Category.class, cascade = CascadeType.ALL)
     private Category category;
 }

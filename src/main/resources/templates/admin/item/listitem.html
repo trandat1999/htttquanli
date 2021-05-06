@@ -19,6 +19,7 @@
 							<tr>
 								<th>id</th>
 								<th>name</th>
+								<th>short description</th>
 								<th>description</th>
 								<th>price (vnd)</th>
 								<th>picture</th>
@@ -29,17 +30,18 @@
 							<tr th:each="item: ${listItem}">
 								<td scope="row"> [[${item.id}]]</td>
 								<td>[[${item.name}]]</td>
+								<td>[[${item.shortDescription}]]</td>
 								<td>[[${item.description}]]</td>
 								<td>[[${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')} +' vnđ']]</td>
 								<td><img th:src="@{/image/{id}(id=${item.id})}" style="height: 75px; width: 75px;" /></td>
-								<td th:unless="${item.categoryModel !=null}">null</td>
-								<td th:if="${item.categoryModel !=null}" th:text="${item.categoryModel.nameCate}"></td>
+								<td th:unless="${item.category !=null}">null</td>
+								<td th:if="${item.category !=null}" th:text="${item.category.name}"></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 
-				<div th:replace="admin/common/menu::pagination"></div>
+				<!-- <div th:replace="admin/common/menu::pagination"></div> -->
 			</div>
 
 			<footer th:replace="admin/common/menu:: footer"></footer>
