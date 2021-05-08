@@ -1,13 +1,14 @@
 package com.tranhuudat.htttquanli.controller;
 
+import com.tranhuudat.htttquanli.model.Account;
 import com.tranhuudat.htttquanli.model.Item;
 import com.tranhuudat.htttquanli.repository.ItemRepository;
+import com.tranhuudat.htttquanli.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,10 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/")
 public class AdminController {
     @Autowired
     private ItemRepository itemRepository;
+
+    @Autowired
+    private AccountService accountService;
 
     @GetMapping(value = "image/{id}")
     public void getImage(@PathVariable("id") long id, HttpServletResponse response, HttpServletRequest request)
@@ -29,11 +34,14 @@ public class AdminController {
         response.getOutputStream().close();
     }
 
-    @GetMapping("login")
-    private String loginView(HttpServletRequest request) {
-        String referrer = request.getHeader("Referer");
-        request.getSession().setAttribute("url_prior", referrer);
-        return "login";
+    @PostMapping("login")
+    private ResponseEntity<Account> login(@RequestBody Account account) {
+        Account account1= accountService.checkLogin(account);
+        if(account1!=null){
+            return new ResponseEntity<>(account1, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }

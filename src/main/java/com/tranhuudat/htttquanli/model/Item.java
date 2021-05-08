@@ -3,11 +3,12 @@ package com.tranhuudat.htttquanli.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="item")
 @Data
-public class Item extends BaseEntity<String>{
+public class Item extends BaseEntity<String> implements Serializable {
     @Column(name = "name", unique = true)
     private String name;
     private String shortDescription;

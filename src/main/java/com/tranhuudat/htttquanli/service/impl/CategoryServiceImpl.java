@@ -25,7 +25,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category addOrUpdate(Category categoryModel) {
         try {
-            return categoryRepository.save(categoryModel);
+            categoryModel= categoryRepository.save(categoryModel);
+            return categoryModel;
         } catch (Exception e) {
             return null;
         }
