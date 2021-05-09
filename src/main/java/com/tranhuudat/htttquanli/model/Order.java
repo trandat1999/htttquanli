@@ -15,9 +15,9 @@ public class Order extends BaseEntity<String>{
     private String details;
     private Double totals;
 
-    @ManyToOne(targetEntity = Employee.class)
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+    @ManyToOne(targetEntity = Account.class)
+    @JoinColumn(name = "account_id")
+    private Account account;
 
     @ManyToOne(targetEntity = Customer.class)
     @JoinColumn(name = "customer_id")

@@ -1,7 +1,9 @@
 package com.tranhuudat.htttquanli.service.impl;
 
 import com.tranhuudat.htttquanli.model.Account;
+import com.tranhuudat.htttquanli.model.Role;
 import com.tranhuudat.htttquanli.repository.AccountRepository;
+import com.tranhuudat.htttquanli.repository.RoleRepository;
 import com.tranhuudat.htttquanli.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +19,9 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     @Override
     public Account checkLogin(Account account) {
         if(account!=null){
@@ -28,6 +33,12 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account saveOrUpdate(Account account) {
         try {
+            if(account.getRole()!=null && account.getRole().getId()>0l){
+                Role role= roleRepository.findById(account.getRole().getId()).get();
+                if(role!=null){
+                    account.setRole(role);
+                }
+            }
             account=accountRepository.save(account);
             return account;
         }catch (Exception e){

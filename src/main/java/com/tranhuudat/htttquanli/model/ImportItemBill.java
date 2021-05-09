@@ -15,9 +15,9 @@ public class ImportItemBill extends BaseEntity<String>{
     private String note;
     private ImportBillStatus status;
 
-    @ManyToOne(targetEntity = Employee.class)
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+    @ManyToOne(targetEntity = Account.class)
+    @JoinColumn(name = "account_id")
+    private Account account;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "importItemBill")
     @JsonIgnore

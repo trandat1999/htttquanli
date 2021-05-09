@@ -1,5 +1,6 @@
 package com.tranhuudat.htttquanli.service;
 
+import com.tranhuudat.htttquanli.dto.SearchDto;
 import com.tranhuudat.htttquanli.model.MaintainingFee;
 import org.springframework.data.domain.Page;
 
@@ -10,4 +11,5 @@ public interface MaintainingFeeService {
     List<MaintainingFee> findAll();
     Page<MaintainingFee> findPage(int page,int pageSize);
     MaintainingFee findById(long id);
+    List<MaintainingFee> search(SearchDto searchDto);
 }

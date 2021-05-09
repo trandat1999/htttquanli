@@ -10,4 +10,5 @@ public class SearchDto implements Serializable {
     private Date startDate;
     private Date endDate;
     private String nameCode;
+    private String phoneNumber;
 }
