@@ -30,16 +30,57 @@ public class WareHouseServiceImpl implements WareHouseService {
 
     @Override
     public WareHouse saveOrUpdate(WareHouse wareHouse) {
-        try{
-            if(wareHouse!=null){
-                wareHouse= wareHouseRepository.save(wareHouse);
-                return wareHouse;
-            }else{
+        if(wareHouse!=null && wareHouse.getItem()!=null){
+            WareHouse wareHouse1=null;
+            if (wareHouse.getItem().getId()>0l){
+                wareHouse1= wareHouseRepository.findByIdItem(wareHouse.getItem().getId());
+                if(wareHouse1!=null){
+                    wareHouse1.setQuantity(wareHouse1.getQuantity()+wareHouse.getQuantity());
+                }else {
+                    return null;
+                }
+            }
+            try{
+                if(wareHouse1!=null){
+                    wareHouse1= wareHouseRepository.save(wareHouse1);
+                    return wareHouse1;
+                }else{
+                    return null;
+                }
+            }catch (Exception exception){
                 return null;
             }
-        }catch (Exception exception){
-            return null;
         }
+
+        return null;
+
+    }
+    @Override
+    public WareHouse updateOrder(WareHouse wareHouse) {
+        if(wareHouse!=null && wareHouse.getItem()!=null){
+            WareHouse wareHouse1=null;
+            if (wareHouse.getItem().getId()>0l){
+                wareHouse1= wareHouseRepository.findByIdItem(wareHouse.getItem().getId());
+                if(wareHouse1!=null){
+                    wareHouse1.setQuantity(wareHouse1.getQuantity()+wareHouse.getQuantity());
+                }else {
+                    return null;
+                }
+            }
+            try{
+                if(wareHouse1!=null){
+                    wareHouse1= wareHouseRepository.save(wareHouse1);
+                    return wareHouse1;
+                }else{
+                    return null;
+                }
+            }catch (Exception exception){
+                return null;
+            }
+        }
+
+        return null;
+
     }
 
     @Override

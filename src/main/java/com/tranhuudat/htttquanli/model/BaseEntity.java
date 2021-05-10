@@ -9,12 +9,13 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @Data
-public abstract class BaseEntity<U> {
+public abstract class BaseEntity<U>  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

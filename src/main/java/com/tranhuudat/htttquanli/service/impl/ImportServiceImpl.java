@@ -38,13 +38,13 @@ public class ImportServiceImpl implements ImportItemService {
     @Override
     public List<ImportItem> search(SearchDto searchDto) {
         if(searchDto!=null){
-            String sql="select ii from ImportItem ii";
-            String where="1=1";
+            String sql="select ii from ImportItem ii ";
+            String where=" where 1=1 ";
             if(searchDto.getStartDate()!=null){
-                where+="and ii.createdDate >= :startDate";
+                where+=" and ii.createdDate >= :startDate ";
             }
             if(searchDto.getEndDate()!=null){
-                where+="and ii.createdDate <= :endDate";
+                where+=" and ii.createdDate <= :endDate ";
             }
             sql+=where;
 

@@ -2,15 +2,14 @@ package com.tranhuudat.htttquanli.model;
 
 import lombok.Data;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @MappedSuperclass
 @Data
-public abstract class Person extends BaseEntity<String>{
+public abstract class Person extends BaseEntity<String>  {
     private String email;
+    @Column(unique = true)
     private String phoneNumber;
 
     @JoinColumn(name="full_name_id")

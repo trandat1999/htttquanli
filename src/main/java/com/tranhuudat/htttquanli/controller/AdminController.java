@@ -12,6 +12,7 @@ import com.tranhuudat.htttquanli.repository.SupplierRepository;
 import com.tranhuudat.htttquanli.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +47,7 @@ public class AdminController {
         response.getOutputStream().close();
     }
 
-    @PostMapping("login")
+    @PostMapping(value = "login",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Account> login(@RequestBody Account account) {
         Account account1= accountService.checkLogin(account);
         if(account1!=null){
@@ -56,8 +57,9 @@ public class AdminController {
         }
     }
 
-    @PostMapping(value="getCustomerPhone")
+    @PostMapping(value="getCustomerPhone",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> findByPhone(@RequestBody SearchDto searchDto){
+        System.out.println(searchDto);
         Customer customer= customerRepository.findByPhoneNumber(searchDto.getPhoneNumber());
         if(customer!=null){
             return new ResponseEntity<>(customer,HttpStatus.OK);
@@ -70,10 +72,20 @@ public class AdminController {
 
     }
 
-    @PostMapping(value="getSupplierPhone")
+    @PostMapping(value="getSupplierPhone",consumes = MediaType.APPLICATION_JSON_VALUE)
     private ResponseEntity<Supplier> findByPhoneSu(@RequestBody SearchDto searchDto){
 
         return new ResponseEntity<>(supplierRepository.findByPhoneNumber(searchDto.getPhoneNumber()),HttpStatus.OK);
+    }
+
+    @GetMapping(value = "getAllCustomer")
+    public ResponseEntity<?> getAllCus(){
+        return new ResponseEntity<>(customerRepository.findAll(),HttpStatus.OK);
+    }
+
+    @GetMapping(value = "getAllSupplier")
+    public ResponseEntity<?> getAllSup(){
+        return new ResponseEntity<>(supplierRepository.findAll(),HttpStatus.OK);
     }
 
 }

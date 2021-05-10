@@ -1,8 +1,10 @@
 package com.tranhuudat.htttquanli.service.impl;
 
 import com.tranhuudat.htttquanli.dto.SearchDto;
+import com.tranhuudat.htttquanli.model.Account;
 import com.tranhuudat.htttquanli.model.ItemOrder;
 import com.tranhuudat.htttquanli.model.MaintainingFee;
+import com.tranhuudat.htttquanli.repository.AccountRepository;
 import com.tranhuudat.htttquanli.repository.MaintainingFeeRepository;
 import com.tranhuudat.htttquanli.service.MaintainingFeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +25,30 @@ public class MaintainingFeeServiceImpl implements MaintainingFeeService {
     @Autowired
     private EntityManager entityManager;
 
+    @Autowired
+    private AccountRepository accountRepository;
+
     @Override
     public MaintainingFee saveOrUpdate(MaintainingFee maintainingFee) {
-        try{
-            return maintainingFeeRepository.save(maintainingFee);
-        }catch (Exception e){
-            return null;
+        if(maintainingFee!=null){
+            if(maintainingFee.getAccount()!=null && maintainingFee.getAccount().getId()>0l){
+                Account account= accountRepository.findById(maintainingFee.getAccount().getId()).get();
+                if(account!=null && account.getUsername()!=null){
+                    if(maintainingFee.getId()>0l){
+                        maintainingFee.setLastModifiedBy(account.getUsername());
+                    }else{
+                        maintainingFee.setCreatedBy(account.getUsername());
+                    }
+                }
+                maintainingFee.setAccount(account);
+            }
+            try{
+                return maintainingFeeRepository.save(maintainingFee);
+            }catch (Exception e){
+                return null;
+            }
         }
+        return null;
     }
 
     @Override
@@ -55,13 +74,13 @@ public class MaintainingFeeServiceImpl implements MaintainingFeeService {
     @Override
     public List<MaintainingFee> search(SearchDto searchDto) {
         if(searchDto!=null){
-            String sql="select io from MaintainingFee io";
-            String where="1=1";
+            String sql="select io from MaintainingFee io ";
+            String where=" where 1=1 ";
             if(searchDto.getStartDate()!=null){
-                where+="and io.createdDate >= :startDate";
+                where+=" and io.createdDate >= :startDate ";
             }
             if(searchDto.getEndDate()!=null){
-                where+="and io.createdDate <= :endDate";
+                where+=" and io.createdDate <= :endDate ";
             }
             sql+=where;
 

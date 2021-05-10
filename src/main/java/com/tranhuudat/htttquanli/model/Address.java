@@ -7,14 +7,13 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "address")
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class Address extends BaseEntity<String>{
+
+public class Address extends BaseEntity<String> implements Serializable {
 
     private String city;
     private String country;

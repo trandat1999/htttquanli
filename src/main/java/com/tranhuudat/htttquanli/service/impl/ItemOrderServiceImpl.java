@@ -37,15 +37,15 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 
     @Override
     public List<ItemOrder> search(SearchDto searchDto) {
-
+        System.out.println(searchDto);
         if(searchDto!=null){
-            String sql="select io from ItemOrder io";
-            String where="1=1";
+            String sql="select io from ItemOrder io ";
+            String where=" where 1=1 ";
             if(searchDto.getStartDate()!=null){
-                where+="and io.createdDate >= :startDate";
+                where+=" and io.createdDate >= :startDate ";
             }
             if(searchDto.getEndDate()!=null){
-                where+="and io.createdDate <= :endDate";
+                where+=" and io.createdDate <= :endDate ";
             }
             sql+=where;
 

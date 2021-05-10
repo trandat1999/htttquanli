@@ -8,6 +8,7 @@ import com.tranhuudat.htttquanli.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +39,7 @@ public class CategoryController {
     }
 
 
-    @PostMapping(value="/add")
+    @PostMapping(value="/add",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Category> pEntity(@RequestBody Category category) {
         category= categoryService.addOrUpdate(category);
         if(category==null){
@@ -49,7 +50,7 @@ public class CategoryController {
     }
 
 
-    @PutMapping(value="edit/{id}")
+    @PutMapping(value="edit/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Category> putMethodName(@PathVariable long id, @RequestBody  Category entity) {
         Category category= categoryService.findById(id);
         if(category==null){

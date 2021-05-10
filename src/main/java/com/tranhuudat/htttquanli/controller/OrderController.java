@@ -6,6 +6,7 @@ import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,10 +19,11 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PostMapping(value = "/save")
+    @PostMapping(value = "/save",consumes = MediaType.ALL_VALUE,produces="application/json")
+    @ResponseBody
     public ResponseEntity<Order> saveOrUpdate(@RequestBody Order order){
-        order = orderService.saveOrUpdate(order);
-        return new ResponseEntity<>(order, HttpStatus.CREATED);
+        Order order1 = orderService.saveOrUpdate(order);
+        return new ResponseEntity<>(order1, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/find/{page}/{pagesize}")
@@ -29,7 +31,7 @@ public class OrderController {
         return orderService.findPage(page,pagSize);
     }
 
-    @GetMapping(value = "/findall")
+    @GetMapping(value = "/all")
     public List<Order> findAll(){
         return orderService.findAll();
     }

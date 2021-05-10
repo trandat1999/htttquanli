@@ -5,11 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="tbl_account")
 @Data
-public class Account extends BaseEntity<String>{
+public class Account extends BaseEntity<String> implements Serializable {
     @Column(unique = true, nullable = false)
     private String username;
     @Column(nullable = false)

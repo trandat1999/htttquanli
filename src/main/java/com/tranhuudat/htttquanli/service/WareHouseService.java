@@ -10,4 +10,5 @@ public interface WareHouseService {
     Page<WareHouse> findPage(int page,int pageSize);
     WareHouse saveOrUpdate(WareHouse wareHouse);
     boolean delete(long id);
+    WareHouse updateOrder(WareHouse wareHouse);
 }

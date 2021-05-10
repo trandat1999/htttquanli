@@ -8,6 +8,7 @@ import com.tranhuudat.htttquanli.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class MaintainingFeeController {
     @Autowired
     private MaintainingFeeService orderService;
 
-    @PostMapping(value = "/save")
+    @PostMapping(value = "/save",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MaintainingFee> saveOrUpdate(@RequestBody MaintainingFee order){
         order = orderService.saveOrUpdate(order);
         return new ResponseEntity<>(order, HttpStatus.CREATED);
@@ -31,7 +32,7 @@ public class MaintainingFeeController {
         return orderService.findPage(page,pagSize);
     }
 
-    @GetMapping(value = "/findall")
+    @GetMapping(value = "/all")
     public List<MaintainingFee> findAll(){
         return orderService.findAll();
     }

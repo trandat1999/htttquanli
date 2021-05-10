@@ -12,6 +12,7 @@ import com.tranhuudat.htttquanli.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,14 +22,15 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/importBill")
+@RequestMapping(value = "/api/importBill")
 public class ImportBillController {
 
     @Autowired
     private ImportItemBillService orderService;
 
-    @PostMapping(value = "/save")
+    @PostMapping(value = "/save",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ImportItemBill> saveOrUpdate(@RequestBody ImportItemBill order){
+        System.out.println(order);
         order = orderService.saveOrUpdate(order);
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
