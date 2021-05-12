@@ -1,8 +1,10 @@
 package com.tranhuudat.htttquanli.service.impl;
 
 import com.tranhuudat.htttquanli.model.Item;
+import com.tranhuudat.htttquanli.model.WareHouse;
 import com.tranhuudat.htttquanli.repository.CategoryRepository;
 import com.tranhuudat.htttquanli.repository.ItemRepository;
+import com.tranhuudat.htttquanli.repository.WareHouseRepository;
 import com.tranhuudat.htttquanli.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,11 +22,15 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private WareHouseRepository wareHouseRepository;
 
     @Override
     public List<Item> findAllItem() {
         return itemRepo.findAll();
     }
+
+
 
     @Override
     public Item saveItem(Item itemModel) {
@@ -32,7 +38,12 @@ public class ItemServiceImpl implements ItemService {
             if(itemModel.getCategory().getId()>0l && itemModel.getCategory()!=null){
                 itemModel.setCategory(categoryRepository.findById(itemModel.getCategory().getId()).get());
             }
-            return itemRepo.save(itemModel);
+            itemModel=itemRepo.save(itemModel);
+            WareHouse wareHouse= new WareHouse();
+            wareHouse.setQuantity(1000);
+            wareHouse.setItem(itemModel);
+            wareHouseRepository.save(wareHouse);
+            return itemModel;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
