@@ -47,14 +47,7 @@ public class OrderServiceImpl implements OrderService {
             if(order.getId()>0l){
                 order= orderRepository.findById(order.getId()).get();
                 order.setStatus(Status.OK);
-                if(order.getItemOrderList()!=null && order.getItemOrderList().size()>0){
-                    for (ItemOrder importItem: order.getItemOrderList()){
-                        WareHouse wareHouse= new WareHouse();
-                        wareHouse.setItem(importItem.getItem());
-                        wareHouse.setQuantity(importItem.getQuantity()*(-1));
-                        wareHouseService.saveOrUpdate(wareHouse);
-                    }
-                }
+
                 return orderRepository.save(order);
             }
             if(order.getCustomer()!=null && order.getCustomer().getId()>0l){
@@ -87,9 +80,14 @@ public class OrderServiceImpl implements OrderService {
             order.setOrderDate(new Date());
             try {
                 order= orderRepository.save(order);
-
-
-
+                if(order.getItemOrderList()!=null && order.getItemOrderList().size()>0){
+                    for (ItemOrder importItem: order.getItemOrderList()){
+                        WareHouse wareHouse= new WareHouse();
+                        wareHouse.setItem(importItem.getItem());
+                        wareHouse.setQuantity(importItem.getQuantity()*(-1));
+                        wareHouseService.saveOrUpdate(wareHouse);
+                    }
+                }
 
                 return order;
             }catch (Exception e){
