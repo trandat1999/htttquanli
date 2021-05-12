@@ -22,6 +22,9 @@ public class Order extends BaseEntity<String> implements Serializable {
     private String details;
     private Double totals;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     @ManyToOne(targetEntity = Account.class)
     @JoinColumn(name = "account_id")
     private Account account;
@@ -30,8 +33,7 @@ public class Order extends BaseEntity<String> implements Serializable {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-
-    @OneToMany(fetch = FetchType.LAZY,orphanRemoval = false,cascade = CascadeType.ALL, mappedBy = "order")
+    @OneToMany(fetch = FetchType.EAGER,orphanRemoval = true,cascade = CascadeType.ALL, mappedBy = "order")
     private Set<ItemOrder> itemOrderList;
 
 }

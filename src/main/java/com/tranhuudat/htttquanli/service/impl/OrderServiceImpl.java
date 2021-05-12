@@ -43,10 +43,19 @@ public class OrderServiceImpl implements OrderService {
     public Order saveOrUpdate(Order order) {
         System.out.println(order);
         if(order!=null){
+
             if(order.getId()>0l){
-                order.setLastModifiedBy(order.getLastModifiedBy());
-            }else{
-                order.setCreatedBy(order.getCreatedBy());
+                order= orderRepository.findById(order.getId()).get();
+                order.setStatus(Status.OK);
+                if(order.getItemOrderList()!=null && order.getItemOrderList().size()>0){
+                    for (ItemOrder importItem: order.getItemOrderList()){
+                        WareHouse wareHouse= new WareHouse();
+                        wareHouse.setItem(importItem.getItem());
+                        wareHouse.setQuantity(importItem.getQuantity()*(-1));
+                        wareHouseService.saveOrUpdate(wareHouse);
+                    }
+                }
+                return orderRepository.save(order);
             }
             if(order.getCustomer()!=null && order.getCustomer().getId()>0l){
                 Customer supplier= customerRepository.findById(order.getCustomer().getId()).get();
@@ -54,11 +63,11 @@ public class OrderServiceImpl implements OrderService {
                     order.setCustomer(supplier);
                 }
             }
+            order.setStatus(Status.NEW);
             if(order.getAccount()!=null && order.getAccount().getId()>0l){
                 Account account= accountRepository.findById(order.getAccount().getId()).get();
                 order.setAccount(account);
             }
-            System.out.println(order.getItemOrderList());
             Set<ItemOrder> importItemList= new HashSet<>();
             if(order.getItemOrderList()!=null && order.getItemOrderList().size()>0){
                 for (ItemOrder itemOrder: order.getItemOrderList()){
@@ -78,14 +87,10 @@ public class OrderServiceImpl implements OrderService {
             order.setOrderDate(new Date());
             try {
                 order= orderRepository.save(order);
-                if(order.getItemOrderList()!=null && order.getItemOrderList().size()>0){
-                    for (ItemOrder importItem: order.getItemOrderList()){
-                        WareHouse wareHouse= new WareHouse();
-                        wareHouse.setItem(importItem.getItem());
-                        wareHouse.setQuantity(importItem.getQuantity()*(-1));
-                        wareHouseService.saveOrUpdate(wareHouse);
-                    }
-                }
+
+
+
+
                 return order;
             }catch (Exception e){
                 e.printStackTrace();
@@ -129,5 +134,10 @@ public class OrderServiceImpl implements OrderService {
             return list;
         }
         return null;
+    }
+
+    @Override
+    public List<Order> findByStatus() {
+        return orderRepository.findByStatus();
     }
 }

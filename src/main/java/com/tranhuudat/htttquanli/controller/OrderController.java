@@ -35,4 +35,9 @@ public class OrderController {
     public List<Order> findAll(){
         return orderService.findAll();
     }
+
+    @GetMapping(value = "/findByStatus")
+    public List<Order> findByStatus(){
+        return orderService.findByStatus();
+    }
 }

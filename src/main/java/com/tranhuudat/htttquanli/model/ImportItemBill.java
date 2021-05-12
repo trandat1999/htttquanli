@@ -1,6 +1,5 @@
 package com.tranhuudat.htttquanli.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,7 +13,7 @@ import java.util.List;
 public class ImportItemBill extends BaseEntity<String> implements Serializable {
     private Date dateImport;
     private String note;
-    private ImportBillStatus status;
+    private Status status;
 
     @ManyToOne(targetEntity = Account.class)
     @JoinColumn(name = "account_id")

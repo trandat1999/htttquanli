@@ -1,5 +1,5 @@
 package com.tranhuudat.htttquanli.model;
 
-public enum ImportBillStatus {
+public enum Status {
     NEW,OK
 }

@@ -11,4 +11,5 @@ public interface OrderService {
     List<Order> findAll();
     Page<Order> findPage(int page,int pageSize);
     List<Order> search(SearchDto searchDto);
+    List<Order> findByStatus();
 }
