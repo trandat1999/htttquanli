@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -74,6 +75,7 @@ public class MaintainingFeeServiceImpl implements MaintainingFeeService {
     @Override
     public List<MaintainingFee> search(SearchDto searchDto) {
         if(searchDto!=null){
+
             String sql="select io from MaintainingFee io ";
             String where=" where 1=1 ";
             if(searchDto.getStartDate()!=null){
@@ -86,10 +88,19 @@ public class MaintainingFeeServiceImpl implements MaintainingFeeService {
 
             Query query= entityManager.createQuery(sql, MaintainingFee.class);
             if(searchDto.getStartDate()!=null){
-                query.setParameter("startDate", searchDto.getStartDate());
+                Date startDate= searchDto.getStartDate();
+                startDate.setHours(0);
+                startDate.setMinutes(0);
+                startDate.setSeconds(0);
+                System.out.println(startDate);
+                query.setParameter("startDate", startDate);
             }
             if(searchDto.getEndDate()!=null){
-                query.setParameter("endDate", searchDto.getEndDate());
+                Date startDate= searchDto.getEndDate();
+                startDate.setHours(23);
+                startDate.setMinutes(59);
+                startDate.setSeconds(59);
+                query.setParameter("endDate", startDate);
             }
             List<MaintainingFee> list= query.getResultList();
             return list;

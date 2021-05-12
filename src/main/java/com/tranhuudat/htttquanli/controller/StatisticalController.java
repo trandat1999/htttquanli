@@ -35,6 +35,7 @@ public class StatisticalController {
 
     @PostMapping(value = "/postMaintaining",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getAllMainSearch(@RequestBody  SearchDto searchDto){
+        System.out.println(searchDto);
         return new ResponseEntity<>(maintainingFeeService.search(searchDto), HttpStatus.OK) ;
     }
 
